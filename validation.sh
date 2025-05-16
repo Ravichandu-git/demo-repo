@@ -9,7 +9,6 @@ echo "$file has no content" >> results.txt
 fi
 done
 echo "***********************"
-echo "***********************"
 cat results.txt
 
 
