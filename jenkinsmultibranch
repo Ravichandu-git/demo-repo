@@ -13,6 +13,9 @@ parameters {
 bengalure
 mysuru''', name: 'place'
 }
+withCredentials([string(credentialsId: 'myownkey', variable: 'abc')]) {
+    
+}
 
  stages {
         stage('Checkout') {
@@ -36,15 +39,27 @@ mysuru''', name: 'place'
     }
   }
 
-  stage('Deploy') {
-    input{
-message "hi there !! want to continu"
-ok "yes, i will"
+  stage('Deploy-dev') {
+    when{ branch "main"
 	}
     steps {
-      echo 'this is deploy stage'
+      echo 'deply this in development environment'
     }
   }
 
+stage('Deploy-test') {
+    when{ branch "test"
+	}
+    steps {
+      echo 'deply this in test environment'
+    }
+  }
+  stage('Deploy-trigger') {
+    when{ branch "autotrigger"
+	}
+    steps {
+      echo 'deply this in auto environment'
+    }
+  }
  }
-}
+}	
