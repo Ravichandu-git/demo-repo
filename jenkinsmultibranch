@@ -13,9 +13,6 @@ parameters {
 bengalure
 mysuru''', name: 'place'
 }
-withCredentials([string(credentialsId: 'myownkey', variable: 'abc')]) {
-    
-}
 
  stages {
         stage('Checkout') {
