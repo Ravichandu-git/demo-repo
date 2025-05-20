@@ -1,0 +1,53 @@
+pipeline{
+		agent {
+			label 'ravilabel' 
+			}
+  options {
+   timestamps()
+   retry(3)
+   }
+parameters {
+  string defaultValue: 'RCB', name: 'user'
+  choice choices: ['raju', 'krish', 'murali'], name: 'ENV'
+  text defaultValue: '''Hi
+bengalure
+mysuru''', name: 'place'
+}
+withCredentials([string(credentialsId: 'myownkey', variable: 'abc')]) {
+    
+}
+
+ stages {
+        stage('Checkout') {
+            steps {
+                 echo 'this is checkout'
+				 echo "running the jobs for you : ${env.JOB_NAME} having build no: ${env.BUILD_ID} jenkins ${env.JENKINS_URL}"
+				 echo "the string value is :: ${params.user}"
+            }
+        }
+
+  stage('testing') {
+    steps {
+      echo 'this is testing'
+    }
+  }
+
+  stage('build') {
+    steps {
+       echo 'this is build stage'
+	   echo "the choice is :: ${params.ENV}"
+    }
+  }
+
+  stage('Deploy') {
+    input{
+message "hi there !! want to continu"
+ok "yes, i will"
+	}
+    steps {
+      echo 'this is deploy stage'
+    }
+  }
+
+ }
+}
